@@ -1,10 +1,6 @@
 import numpy as np;
-data = np.array([12, 34],
-                [23, 44],
-                [2, 33],
-                [3, 55])
 
 
-data_x = np.fromfunction(lambda _, i: np.power(data[:, 1], i), (1, 4), dtype=float)
+data_x = np.power(2.3, np.arange(10))
 
 print(data_x)
