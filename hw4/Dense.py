@@ -23,7 +23,9 @@ class Dense():
 
         ### PASTE YOUR CODE HERE ###
         ### START CODE HERE ### 
-
+        limit = np.sqrt(6/(self.n_x+self.n_y))
+        W = np.random.uniform(-limit, limit, (self.n_y, self.n_x))
+        b = np.zeros((self.n_y, 1))
         ### END CODE HERE ###
 
         assert(W.shape == (self.n_y, self.n_x))
@@ -45,7 +47,8 @@ class Dense():
 
         ### PASTE YOUR CODE  ###
         ### START CODE HERE ### 
-
+        self.cache = (A, self.parameters["W"], self.parameters["b"])
+        Z = np.dot(self.parameters["W"], A) + self.parameters["b"]
         ### END CODE HERE ###
         
         assert(Z.shape == (self.parameters["W"].shape[0], A.shape[1]))
@@ -71,7 +74,10 @@ class Dense():
 
         ### PASTE YOUR CODE HERE ###
         ### START CODE HERE ###
-
+        self.dW = 1/m*(np.dot(dZ, A_prev.T))
+        self.db = 1/m*(np.sum(dZ, axis=1)).reshape(b.shape)
+        #print(self.db.shape)
+        dA_prev = np.dot(W.T, dZ)
         ### END CODE HERE ###
 
         
@@ -91,5 +97,6 @@ class Dense():
 
         ### PASTE YOUR CODE HERE ###
         ### START CODE HERE ###
-
+        self.parameters["W"] = self.parameters["W"] - learning_rate*self.dW
+        self.parameters["b"] = self.parameters["b"] - learning_rate*self.db
         ### END CODE HERE ###

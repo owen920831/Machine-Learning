@@ -22,7 +22,15 @@ class Activation():
 
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ###
-
+            A = []
+            for row in Z:
+                vector = []
+                for col in row:
+                    if (col >= 0): vector = np.append(vector, 1/(1+np.exp(-col)))
+                    else : vector = np.append(vector, np.exp(col)/(1+np.exp(col)))
+                A = np.append(A, vector)
+            A = A.reshape(Z.shape)
+            self.cache = Z
             ### END CODE HERE ###
             
             return A
@@ -41,7 +49,8 @@ class Activation():
 
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ###
-
+            A = (np.exp(Z-np.max(Z)))/(np.sum(np.exp(Z-np.max(Z)), axis=0))
+            self.cache = Z
             ### END CODE HERE ###
             
             return A
@@ -59,7 +68,8 @@ class Activation():
             
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ###
-
+            A = np.where(Z>0, Z, 0)
+            self.cache = Z
             ### END CODE HERE ###
             
             assert(A.shape == Z.shape)
@@ -79,7 +89,17 @@ class Activation():
             
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ###
+            Z = self.cache
+            A = []
+            for row in Z:
+                vector = []
+                for col in row:
+                    if (col >= 0): vector = np.append(vector, 1/(1+np.exp(-col)))
+                    else : vector = np.append(vector, np.exp(col)/(1+np.exp(col)))
+                A = np.append(A, vector)
+            A = A.reshape(Z.shape)
 
+            dZ = dA * (A*(1-A))
             ### END CODE HERE ###
             
             assert (dZ.shape == Z.shape)
@@ -98,7 +118,9 @@ class Activation():
             
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ### 
-
+            Z = self.cache > 0
+            dZ = dA * Z # just converting dz to a correct object. 
+            dZ[Z <= 0] = 0 # When z <= 0, you should set dz to 0 as well.
             ### END CODE HERE ###
             
             assert (dZ.shape == Z.shape)
@@ -118,7 +140,9 @@ class Activation():
             
             ### PASTE YOUR CODE HERE ###
             ### START CODE HERE ### 
-
+            Z = self.cache
+            s = (np.exp(Z-np.max(Z)))/(np.sum(np.exp(Z-np.max(Z)), axis=0))
+            dZ = s-Y
             ### END CODE HERE ###
             
             assert (dZ.shape == Z.shape)
