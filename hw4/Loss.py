@@ -12,7 +12,6 @@ def compute_BCE_cost(AL, Y):
     Returns:
     cost -- binary cross-entropy cost
     """
-    
     m = Y.shape[1]
 
     ### PASTE YOUR CODE HERE ###

@@ -53,4 +53,4 @@ def predict(X, y, model, classes):
                 correct += 1
         print("Accuracy: "  + str(correct/m))
         
-    return p
+    return p, np.sum((p == y)/m)
